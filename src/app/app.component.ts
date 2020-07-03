@@ -18,7 +18,7 @@ export class AppComponent implements OnInit{
   }
   
   handleFileInput(files: FileList) {
-    debugger;
+    // debugger;
     this.dirs.click(files);
     // this.fileSelected = files[0];
     // this.uploadService.handleFileInput(files);
