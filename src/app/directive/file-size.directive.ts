@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, OnInit, Input, HostListener } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnInit, Input, HostListener, SimpleChanges } from '@angular/core';
 import { SharedService } from '../service/shared.service';
 
 @Directive({
@@ -7,27 +7,23 @@ import { SharedService } from '../service/shared.service';
 export class FileSizeDirective implements OnInit{
   @Input() maxUploadSize:any;
   @Input() fileSize:any;
+  fileSizeInMb: any;
   constructor(private elRef:ElementRef, private renderer:Renderer2, private uploadService:SharedService) { }
   
   ngOnInit(){
     // debugger;
-    // console.log(this.maxUploadSize*1024);
+    console.log(this.maxUploadSize*1000000);
     // console.log('fileSize ' +  this.fileSize);
     // console.log(this.fileSize);
-  
   }
-  click(event){
-    // debugger;
-    // console.log('click function' ,event[0].size);
-    if(event[0].size > this.maxUploadSize*1024){
-      alert(`Cannot be uploaded, file size greater than ${this.maxUploadSize} MB`);
-      return false;
-    }else{
-      alert(`Can be uploaded, file size less than ${this.maxUploadSize} MB`);
-     this.uploadService.handleFileInput(event[0]);
-    }
+ @HostListener('change', ['$event.target.files[0].size']) myClick(size) {
+  this.fileSizeInMb = size/1048576;
+  if(this.fileSizeInMb<1){
+    alert(`Can be uploaded, file size is less than ${this.maxUploadSize} MB`)
+  } else
+  {
+    alert(`Cannot be uploaded, file size exceeds the limit of ${this.maxUploadSize} MB`)
   }
-
-
+ }
 
 }

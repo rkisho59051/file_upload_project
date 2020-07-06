@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ViewChildren, OnChanges, SimpleChanges } from '@angular/core';
 import { FileSizeDirective } from './directive/file-size.directive';
 import { SharedService } from './service/shared.service';
 
@@ -11,18 +11,9 @@ import { SharedService } from './service/shared.service';
 export class AppComponent implements OnInit{
   title = 'one-mb-directive';
   public fileSelected:any;
-  @ViewChild(FileSizeDirective) dirs;
 
-  constructor(private uploadService:SharedService) { }
+
+  constructor() { }
   ngOnInit(){
-  }
-  
-  handleFileInput(files: FileList) {
-    // debugger;
-    this.dirs.click(files);
-    // this.fileSelected = files[0];
-    // this.uploadService.handleFileInput(files);
-    
-    
   }
 }
